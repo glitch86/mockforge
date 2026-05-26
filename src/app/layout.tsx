@@ -20,13 +20,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} h-full`}
+      suppressHydrationWarning
+    >
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
           <ClerkProvider>
-
-          <Navbar></Navbar>
-          {children}
+            <Navbar></Navbar>
+            {children}
           </ClerkProvider>
         </ThemeProvider>
       </body>

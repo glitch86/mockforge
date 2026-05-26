@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   NavigationMenu,
@@ -9,9 +10,18 @@ import Logo from "./Logo";
 import { Bell, FileQuestion } from "lucide-react";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../Theme/ThemeToggle";
-import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import {
+  Show,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 
 const Navbar = () => {
+  const { isLoaded } = useUser();
+
+  if (!isLoaded) return <div>Loading..</div>;
   return (
     <div className="container mx-auto flex items-center gap-3">
       <Logo></Logo>
@@ -37,20 +47,18 @@ const Navbar = () => {
             <FileQuestion></FileQuestion>
           </div>
 
-          <div>
+          <div className="flex flex-col justify-center">
             <Show when="signed-out">
               <SignUpButton>
-                <Button>
-                  Deploy Mock
-                </Button>
+                <Button>Deploy Mock</Button>
               </SignUpButton>
             </Show>
             <Show when="signed-in">
               <UserButton />
             </Show>
           </div>
+          <ThemeToggle></ThemeToggle>
         </div>
-        <ThemeToggle></ThemeToggle>
       </div>
     </div>
   );

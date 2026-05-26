@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import { ThemeProvider } from "@/components/Theme/ThemeProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,8 +23,11 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} h-full`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
+          <ClerkProvider>
+
           <Navbar></Navbar>
           {children}
+          </ClerkProvider>
         </ThemeProvider>
       </body>
     </html>

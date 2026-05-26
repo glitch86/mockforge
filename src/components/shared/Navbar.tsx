@@ -9,6 +9,7 @@ import Logo from "./Logo";
 import { Bell, FileQuestion } from "lucide-react";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../Theme/ThemeToggle";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -37,7 +38,16 @@ const Navbar = () => {
           </div>
 
           <div>
-            <Button>Deploy Mock</Button>
+            <Show when="signed-out">
+              <SignUpButton>
+                <Button>
+                  Deploy Mock
+                </Button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
           </div>
         </div>
         <ThemeToggle></ThemeToggle>

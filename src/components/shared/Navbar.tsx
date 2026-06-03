@@ -23,7 +23,7 @@ const Navbar = () => {
 
   if (!isLoaded) return <div>Loading..</div>;
   return (
-    <div className="bg-neutral-900">
+    <div className="bg-transparent shadow-lg">
       <div className="container mx-auto flex items-center gap-3">
         <Logo></Logo>
         <NavigationMenu className="">

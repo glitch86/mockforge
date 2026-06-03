@@ -19,7 +19,7 @@ const Hero = () => {
       </div>
       <div className="flex justify-center items-center gap-5 my-6">
         <Button className="px-6 py-6 bg-accent text-white">Get started</Button>
-        <Button className="px-6 py-6 bg-transparent border border-accent border-2 text-accent">View Dashboard</Button>
+        <Button className="px-6 py-6 bg-transparent border-accent border-2 text-accent">View Dashboard</Button>
       </div>
     </Section>
   );

@@ -74,7 +74,7 @@ const Example = () => {
 
         {/* body  */}
         <div>
-          <div className=" rounded-b-xl border border-zinc-800 bg-zinc-950 p-4 font-mono text-sm text-zinc-300">
+          <div className=" rounded-b-xl border border-zinc-300 dark:border-zinc-800 bg-[#F8FAFC] dark:bg-zinc-950 p-4 font-mono text-sm text-zinc-900 dark:text-zinc-300">
             <motion.pre
               variants={container}
               initial="hidden"

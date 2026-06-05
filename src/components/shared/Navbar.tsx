@@ -23,7 +23,7 @@ const Navbar = () => {
 
   if (!isLoaded) return <div>Loading..</div>;
   return (
-    <div className="bg-transparent shadow-lg">
+    <div className="bg-white dark:bg-zinc-950 shadow-lg sticky top-0">
       <div className="container mx-auto flex items-center gap-3">
         <Logo></Logo>
         <NavigationMenu className="">
@@ -35,7 +35,7 @@ const Navbar = () => {
               <NavigationMenuLink>Pricing</NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink>Dashboard</NavigationMenuLink>
+              <NavigationMenuLink href="/dashboard">Dashboard</NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

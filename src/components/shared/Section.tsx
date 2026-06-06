@@ -4,7 +4,7 @@ type Props = {
   children: ReactNode;
 };
 const Section = ({ children }: Props) => {
-  return <section className="container mx-auto my-12 p-9">{children}</section>;
+  return <section className="container mx-auto my-12 p-12">{children}</section>;
 };
 
 export default Section;

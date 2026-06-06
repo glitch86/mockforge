@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Sidebar,
@@ -12,6 +13,7 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import Logo from "./Logo";
@@ -35,27 +37,34 @@ const Appsidebar = () => {
   const items: Item[] = [
     {
       title: "Projects",
-      url: "dashboard/projects",
+      url: "/dashboard/projects",
       icon: FolderBookmarkIcon,
     },
     {
       title: "Environments",
-      url: "dashboard/environtments",
+      url: "/dashboard/environment",
       icon: Layers2,
     },
     {
       title: "Activity Log",
-      url: "dashboard/log",
+      url: "/dashboard/log",
       icon: History,
     },
     {
       title: "Settings",
-      url: "dashboard/settings",
+      url: "/dashboard/settings",
       icon: Settings,
     },
   ];
   return (
-    <Sidebar>
+    <Sidebar
+      collapsible="icon"
+      style={
+        {
+          "--sidebar-width": "13rem",
+        } as React.CSSProperties
+      }
+    >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -101,7 +110,9 @@ const Appsidebar = () => {
         </SidebarGroup>
         <SidebarGroup />
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter>
+        <SidebarRail></SidebarRail>
+      </SidebarFooter>
     </Sidebar>
   );
 };

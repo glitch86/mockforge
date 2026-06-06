@@ -19,9 +19,9 @@ import {
 } from "@clerk/nextjs";
 
 const Navbar = () => {
-  const { isLoaded } = useUser();
+  const { isLoaded, user } = useUser();
+  console.log(user);
 
-  if (!isLoaded) return <div>Loading..</div>;
   return (
     <div className="bg-white dark:bg-zinc-950 shadow-lg sticky top-0">
       <div className="container mx-auto flex items-center gap-3">
@@ -35,7 +35,11 @@ const Navbar = () => {
               <NavigationMenuLink>Pricing</NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink href="/dashboard">Dashboard</NavigationMenuLink>
+              {user && (
+                <NavigationMenuLink href="/dashboard">
+                  Dashboard
+                </NavigationMenuLink>
+              )}
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -49,14 +53,17 @@ const Navbar = () => {
             </div>
 
             <div className="flex flex-col justify-center">
-              <Show when="signed-out">
-                <SignUpButton>
-                  <Button>Deploy Mock</Button>
-                </SignUpButton>
-              </Show>
-              <Show when="signed-in">
-                <UserButton />
-              </Show>
+              {user ? (
+                <Show when="signed-in">
+                  <UserButton />
+                </Show>
+              ) : (
+                <Show when="signed-out">
+                  <SignUpButton>
+                    <Button>Deploy Mock</Button>
+                  </SignUpButton>
+                </Show>
+              )}
             </div>
             <ThemeToggle></ThemeToggle>
           </div>

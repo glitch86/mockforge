@@ -1,11 +1,11 @@
-import React from 'react';
+import { auth } from "@clerk/nextjs/server";
 
-const page = () => {
+export default async function Dashboard() {
+  const session = await auth();
+
+  console.log("AUTH:", session);
+
   return (
-    <div>
-      hi
-    </div>
+    <pre>{JSON.stringify(session, null, 2)}</pre>
   );
-};
-
-export default page;
+}

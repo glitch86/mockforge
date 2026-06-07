@@ -1,4 +1,4 @@
-"use client";
+
 import React from "react";
 import {
   NavigationMenu,
@@ -10,17 +10,12 @@ import Logo from "./Logo";
 import { Bell, FileQuestion } from "lucide-react";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../Theme/ThemeToggle";
-import {
-  Show,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
-const Navbar = () => {
-  const { isLoaded, user } = useUser();
-  console.log(user);
+const Navbar = async () => {
+  const user = await currentUser();
+  console.log('user', user);
 
   return (
     <div className="bg-white dark:bg-zinc-950 shadow-lg sticky top-0">
@@ -53,19 +48,8 @@ const Navbar = () => {
             </div>
 
             <div className="flex flex-col justify-center">
-              {user ? (
-                <Show when="signed-in">
-                  <UserButton />
-                </Show>
-              ) : (
-                <Show when="signed-out">
-                  <SignUpButton>
-                    <Button>Deploy Mock</Button>
-                  </SignUpButton>
-                </Show>
-              )}
+              {user ? <UserButton></UserButton> : <SignInButton></SignInButton>}
             </div>
-            <ThemeToggle></ThemeToggle>
           </div>
         </div>
       </div>

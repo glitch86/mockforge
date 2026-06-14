@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   NavigationMenu,
@@ -15,10 +14,10 @@ import { currentUser } from "@clerk/nextjs/server";
 
 const Navbar = async () => {
   const user = await currentUser();
-  console.log('user', user);
+  console.log("user", user);
 
   return (
-    <div className="bg-white dark:bg-zinc-950 shadow-lg sticky top-0">
+    <div className="bg-white dark:bg-zinc-950 shadow-lg sticky top-0 z-100">
       <div className="container mx-auto flex items-center gap-3">
         <Logo></Logo>
         <NavigationMenu className="">
@@ -48,7 +47,16 @@ const Navbar = async () => {
             </div>
 
             <div className="flex flex-col justify-center">
-              {user ? <UserButton></UserButton> : <SignInButton></SignInButton>}
+              {user ? (
+                <UserButton></UserButton>
+              ) : (
+                <Button>
+                  <SignInButton></SignInButton>
+                </Button>
+              )}
+            </div>
+            <div>
+              <ThemeToggle></ThemeToggle>
             </div>
           </div>
         </div>

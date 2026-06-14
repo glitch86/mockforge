@@ -1,11 +1,11 @@
-import { auth } from "@clerk/nextjs/server";
+import React from 'react';
 
-export default async function Dashboard() {
-  const session = await auth();
-
-  console.log("AUTH:", session);
-
+const Dashboard = () => {
   return (
-    <pre>{JSON.stringify(session, null, 2)}</pre>
+    <div>
+      Dashboard
+    </div>
   );
-}
+};
+
+export default Dashboard;

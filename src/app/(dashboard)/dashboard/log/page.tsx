@@ -1,11 +1,12 @@
-import Section from '@/components/shared/Section';
+
 import React from 'react';
 
 const Log = () => {
     return (
-        <Section>
+        <d
+        iv>
             activity log
-        </Section>
+        </div>
     );
 };
 

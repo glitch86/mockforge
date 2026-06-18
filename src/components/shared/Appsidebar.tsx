@@ -20,8 +20,10 @@ import Logo from "./Logo";
 import Link from "next/link";
 import Image from "next/image";
 import {
+  Folder,
   FolderBookmarkIcon,
   History,
+  Home,
   Layers2,
   LucideIcon,
   Settings,
@@ -36,9 +38,15 @@ type Item = {
 const Appsidebar = () => {
   const items: Item[] = [
     {
+      title: "Overview",
+      url: "/dashboard",
+      icon: Home,
+    },
+
+    {
       title: "Projects",
       url: "/dashboard/projects",
-      icon: FolderBookmarkIcon,
+      icon: Folder,
     },
     {
       title: "Environments",

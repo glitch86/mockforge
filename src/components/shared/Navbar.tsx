@@ -50,7 +50,7 @@ const Navbar = async () => {
               {user ? (
                 <UserButton></UserButton>
               ) : (
-                <Button>
+                <Button asChild>
                   <SignInButton></SignInButton>
                 </Button>
               )}

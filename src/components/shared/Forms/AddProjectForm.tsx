@@ -17,6 +17,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -40,6 +41,7 @@ const AddProjectForm = () => {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log(data);
+    toast.success("Project Created.");
   };
   return (
     <form id="add-project" onSubmit={form.handleSubmit(onSubmit)}>

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/Theme/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,7 +27,10 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <body className="min-h-full flex flex-col">
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <Toaster></Toaster>
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

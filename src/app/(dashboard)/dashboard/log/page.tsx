@@ -3,8 +3,7 @@ import React from 'react';
 
 const Log = () => {
     return (
-        <d
-        iv>
+        <div>
             activity log
         </div>
     );

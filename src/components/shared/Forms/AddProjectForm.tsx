@@ -42,6 +42,7 @@ const AddProjectForm = () => {
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log(data);
     toast.success("Project Created.");
+    
   };
   return (
     <form id="add-project" onSubmit={form.handleSubmit(onSubmit)}>

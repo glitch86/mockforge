@@ -11,10 +11,11 @@ import { Button } from "../ui/button";
 import { ThemeToggle } from "../Theme/ThemeToggle";
 import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
+import useAxiosSecure from "@/hooks/axios/useAxios";
 
 const Navbar = async () => {
   const user = await currentUser();
-  console.log("user", user);
+  // console.log("user", user);
 
   return (
     <div className="bg-white dark:bg-zinc-950 shadow-lg sticky top-0 z-100">

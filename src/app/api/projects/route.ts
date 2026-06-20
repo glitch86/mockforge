@@ -1,5 +1,4 @@
 import clientPromise from "@/lib/mongodb";
-import { error } from "console";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {

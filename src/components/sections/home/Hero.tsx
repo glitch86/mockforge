@@ -1,6 +1,7 @@
 import DotGrid from "@/components/DotGrid";
 import Section from "@/components/shared/Section";
 import { Button } from "@/components/ui/button";
+import useAxiosSecure from "@/hooks/axios/useAxios";
 import React from "react";
 
 const Hero = () => {

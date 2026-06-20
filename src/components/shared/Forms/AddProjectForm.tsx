@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
 import {
   Field,
   FieldDescription,
@@ -23,7 +24,7 @@ import * as z from "zod";
 const formSchema = z.object({
   title: z
     .string()
-    // .min(5, "Bug title must be at least 5 characters.")
+    .min(1, "title can't be empty.")
     .max(32, "Bug title must be at most 32 characters."),
   description: z.string(),
   // .min(20, "Description must be at least 20 characters.")
@@ -42,7 +43,6 @@ const AddProjectForm = () => {
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log(data);
     toast.success("Project Created.");
-    
   };
   return (
     <form id="add-project" onSubmit={form.handleSubmit(onSubmit)}>

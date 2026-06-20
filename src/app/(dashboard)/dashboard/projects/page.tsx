@@ -1,5 +1,7 @@
 import AddProjectForm from "@/components/shared/Forms/AddProjectForm";
 import { Button } from "@/components/ui/button";
+// import { Dialog as DialogPrimitive } from "radix-ui";
+
 import {
   Dialog,
   DialogContent,
@@ -8,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { XIcon } from "lucide-react";
 import React from "react";
 
 const Projects = () => {
@@ -21,7 +24,7 @@ const Projects = () => {
           <DialogTitle>hh</DialogTitle>
           <DialogHeader>Add project</DialogHeader>
 
-            <AddProjectForm></AddProjectForm>
+          <AddProjectForm></AddProjectForm>
         </DialogContent>
       </Dialog>
     </div>

@@ -1,12 +1,25 @@
+import { requireAuth } from "@/lib/auth";
 import clientPromise from "@/lib/mongodb";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
+    const userId = await requireAuth();
+    if (!userId) {
+      return NextResponse.json(
+        {
+          message: "Unauthorized request.",
+        },
+        {
+          status: 401,
+        },
+      );
+    }
     const body = await request.json();
     const { title, description } = body;
 
-    if (!title) {
+    if (!title?.trim()) {
       return NextResponse.json(
         { error: "Project title is required." },
         { status: 400 },

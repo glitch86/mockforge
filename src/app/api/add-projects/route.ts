@@ -1,11 +1,12 @@
 import { requireAuth } from "@/lib/auth";
 import clientPromise from "@/lib/mongodb";
-import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
     const userId = await requireAuth();
+    const user = await currentUser();
     if (!userId) {
       return NextResponse.json(
         {
@@ -32,6 +33,8 @@ export async function POST(request: Request) {
     const result = await db.collection("projects").insertOne({
       title,
       description,
+      ownerId: userId,
+      email: user?.emailAddresses[0].emailAddress,
       createdAt: new Date(),
     });
 

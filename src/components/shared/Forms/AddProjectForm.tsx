@@ -15,7 +15,9 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
+import useAxios from "@/hooks/axios/useAxios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -32,6 +34,8 @@ const formSchema = z.object({
 });
 
 const AddProjectForm = () => {
+  const axios = useAxios();
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,10 +44,17 @@ const AddProjectForm = () => {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
+  // form submit
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
     console.log(data);
+    const { title, description } = data;
+    const res = await axios.post("/add-projects", { title, description });
+
+    console.log("server res", res.data);
     toast.success("Project Created.");
+    router.push(`projects/${res.data.id}`);
   };
+
   return (
     <form id="add-project" onSubmit={form.handleSubmit(onSubmit)}>
       <FieldGroup>

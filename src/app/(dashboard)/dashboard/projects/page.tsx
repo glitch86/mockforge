@@ -10,10 +10,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { currentUser } from "@clerk/nextjs/server";
 import { XIcon } from "lucide-react";
 import React from "react";
 
-const Projects = () => {
+const Projects = async () => {
+  const user = await currentUser();
+  console.log(user?.emailAddresses[0].emailAddress);
   return (
     <div>
       <Dialog>

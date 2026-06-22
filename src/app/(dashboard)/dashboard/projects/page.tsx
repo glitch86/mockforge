@@ -1,3 +1,4 @@
+import ProjectCard from "@/components/shared/Cards/ProjectCard";
 import AddProjectForm from "@/components/shared/Forms/AddProjectForm";
 import { Button } from "@/components/ui/button";
 // import { Dialog as DialogPrimitive } from "radix-ui";
@@ -18,18 +19,26 @@ const Projects = async () => {
   const user = await currentUser();
   console.log(user?.emailAddresses[0].emailAddress);
   return (
-    <div>
-      <Dialog>
-        <Button asChild>
-          <DialogTrigger>Create Project</DialogTrigger>
-        </Button>
-        <DialogContent>
-          <DialogTitle>hh</DialogTitle>
-          <DialogHeader>Add project</DialogHeader>
+    <div className="h-full flex flex-col px-7">
+      {/* header  */}
+      <div className="flex-1 ">
+        <Dialog>
+          <Button asChild>
+            <DialogTrigger>Create Project</DialogTrigger>
+          </Button>
+          <DialogContent>
+            <DialogTitle>hh</DialogTitle>
+            <DialogHeader>Add project</DialogHeader>
 
-          <AddProjectForm></AddProjectForm>
-        </DialogContent>
-      </Dialog>
+            <AddProjectForm></AddProjectForm>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* project container */}
+      <div className="bg-secondary/50 flex-2 p-9 rounded-4xl h-fit">
+        <ProjectCard></ProjectCard>
+      </div>
     </div>
   );
 };

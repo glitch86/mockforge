@@ -1,4 +1,5 @@
 import Appsidebar from "@/components/shared/Appsidebar";
+import { ThemeToggle } from "@/components/Theme/ThemeToggle";
 import {
   SidebarInset,
   SidebarProvider,
@@ -13,10 +14,11 @@ export default function DashboardLayout({
   return (
     <SidebarProvider className="">
       <Appsidebar></Appsidebar>
-      <SidebarInset>
-        <main className="pt-3">
+      <SidebarInset className="">
+        <main >
           <SidebarTrigger></SidebarTrigger>
-          <div>{children}</div>
+          <ThemeToggle></ThemeToggle>
+          <div className="h-screen">{children}</div>
         </main>
       </SidebarInset>
     </SidebarProvider>

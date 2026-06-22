@@ -1,3 +1,4 @@
+import ProjectContainer from "@/components/sections/projects/ProjectContainer";
 import ProjectCard from "@/components/shared/Cards/ProjectCard";
 import AddProjectForm from "@/components/shared/Forms/AddProjectForm";
 import { Button } from "@/components/ui/button";
@@ -11,13 +12,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import useAxios from "@/hooks/axios/useAxios";
 import { currentUser } from "@clerk/nextjs/server";
-import { XIcon } from "lucide-react";
-import React from "react";
 
-const Projects = async () => {
-  const user = await currentUser();
-  console.log(user?.emailAddresses[0].emailAddress);
+const Projects = () => {
+
+
   return (
     <div className="h-full flex flex-col px-7">
       {/* header  */}
@@ -36,9 +36,7 @@ const Projects = async () => {
       </div>
 
       {/* project container */}
-      <div className="bg-secondary/50 flex-2 p-9 rounded-4xl h-fit">
-        <ProjectCard></ProjectCard>
-      </div>
+      <ProjectContainer></ProjectContainer>
     </div>
   );
 };

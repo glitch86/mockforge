@@ -3,7 +3,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import React from "react";
 
-export async function GET(request: Request) {
+export async function GET() {
   const user = await currentUser();
   const email = user?.emailAddresses[0].emailAddress;
   try {

@@ -33,9 +33,12 @@ export async function POST(request: Request) {
     const result = await db.collection("projects").insertOne({
       title,
       description,
+      endpoints: 0,
+      response: 0,
       ownerId: userId,
       email: user?.emailAddresses[0].emailAddress,
       createdAt: new Date(),
+      lastUpdated: new Date(),
     });
 
     return NextResponse.json(

@@ -11,7 +11,7 @@ type Project = {
   response: number;
   lastUpdated: string;
 };
-const ProjectCard = () => {
+const ProjectCard = ({project}: Project) => {
   const { title, description, endpoints, response, lastUpdated }: Project = {
     title: "Auth Service",
     description: "Lorem impum dolor or something i don't quite remember.",

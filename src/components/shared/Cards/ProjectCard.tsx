@@ -1,24 +1,20 @@
+import { Project } from "@/app/types/Projects";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { ArrowBigRightDash, Circle, History } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-type Project = {
-  title: string;
-  description: string;
-  endpoints: number;
-  response: number;
-  lastUpdated: string;
+type Props = {
+  project: Project;
 };
-const ProjectCard = ({project}: Project) => {
-  const { title, description, endpoints, response, lastUpdated }: Project = {
-    title: "Auth Service",
-    description: "Lorem impum dolor or something i don't quite remember.",
-    endpoints: 12,
-    response: 43,
-    lastUpdated: "2 hours ago.",
-  };
+const ProjectCard = ({ project }: Props) => {
+  const { title, description, endpoints, response, lastUpdated } = project;
 
   return (
     <Card className="bg-secondary h-64 w-80">

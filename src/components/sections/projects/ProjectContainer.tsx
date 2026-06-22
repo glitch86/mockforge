@@ -1,6 +1,8 @@
 "use client";
 import { Project } from "@/app/types/Projects";
 import ProjectCard from "@/components/shared/Cards/ProjectCard";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import useAxios from "@/hooks/axios/useAxios";
 import React, { useEffect, useState } from "react";
 
@@ -24,10 +26,20 @@ const ProjectContainer = () => {
     fetchData();
   }, [axios]);
 
-  console.log(projects);
+  //   console.log(projects);
   return (
-    <div className="bg-secondary/50 flex-2 p-9 rounded-4xl h-fit">
-      <ProjectCard></ProjectCard>
+    <div className="bg-secondary/50 flex-2 p-9 rounded-4xl h-fit grid grid-cols-3">
+      {loading ? (
+        <Button disabled size="sm">
+          <Spinner data-icon="inline-start" />
+          Loading...
+        </Button>
+      ) : (
+        projects.map(project => 
+
+            <ProjectCard key={project._id} project={project}></ProjectCard>
+        )
+      )}
     </div>
   );
 };

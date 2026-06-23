@@ -14,7 +14,7 @@ type Props = {
   project: Project;
 };
 const ProjectCard = ({ project }: Props) => {
-  const { title, description, endpoints, response, lastUpdated } = project;
+  const {_id, title, description, endpoints, response, lastUpdated } = project;
 
   return (
     <Card className="bg-secondary h-64 w-80">
@@ -40,12 +40,12 @@ const ProjectCard = ({ project }: Props) => {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between items-center">
         <div className="flex items-center gap-1">
           <History></History>
           <span>Updated {lastUpdated}</span>
         </div>
-        <Link href={""}>
+        <Link href={`projects/${_id}`}>
           <Button className="bg-secondary-foreground text-accent">
             <span>Open</span>
             <ArrowBigRightDash></ArrowBigRightDash>

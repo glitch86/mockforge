@@ -2,6 +2,7 @@
 import { Project } from "@/app/types/Projects";
 import Loader from "@/components/shared/Loader";
 import Section from "@/components/shared/Section";
+import EndpointTable from "@/components/Tables/EndpointTable";
 import { Button } from "@/components/ui/button";
 import useAxios from "@/hooks/axios/useAxios";
 import { Plus } from "lucide-react";
@@ -48,6 +49,9 @@ export default function ProjectPage({
           </Button>
         </div>
       </div>
+
+      {/* table */}
+      <EndpointTable></EndpointTable>
     </Section>
   );
 }

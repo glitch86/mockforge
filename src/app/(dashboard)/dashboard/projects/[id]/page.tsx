@@ -1,9 +1,53 @@
-export default async function ProjectPage({
+"use client";
+import { Project } from "@/app/types/Projects";
+import Loader from "@/components/shared/Loader";
+import Section from "@/components/shared/Section";
+import { Button } from "@/components/ui/button";
+import useAxios from "@/hooks/axios/useAxios";
+import { Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+
+export default function ProjectPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
+  const axios = useAxios();
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  return <h1>Project ID: {id}</h1>;
+  useEffect(() => {
+    const fetchData = async () => {
+      const { id } = await params;
+      const res = await axios.get(`/get-projects/${id}`);
+
+      setProject(res.data);
+      setLoading(false);
+    };
+    fetchData();
+  }, [axios, params]);
+
+  if (loading || !project) {
+    return <Loader></Loader>;
+  }
+
+  const { title, description, endpoints, response, createdAt } = project;
+  // console.log(project);
+  return (
+    <Section my={1} p={9}>
+      {/* header  */}
+      <div className="flex justify-between items-center">
+        <div>
+          <h2 className="font-semibold text-3xl">{title}</h2>
+          <p className="text-zinc-500">{description}</p>
+        </div>
+        <div>
+          <Button className="bg-accent text-white py-5">
+            <Plus></Plus>
+            <span>Create new endpoints</span>
+          </Button>
+        </div>
+      </div>
+    </Section>
+  );
 }

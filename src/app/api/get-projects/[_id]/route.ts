@@ -11,11 +11,15 @@ export async function GET(request: Request, { params }: Props) {
     const client = await clientPromise;
     const db = client.db("mockForge");
 
-    const project = await db.collection("projects").findOne({_id: new ObjectId(_id)})
+    const project = await db
+      .collection("projects")
+      .findOne({ _id: new ObjectId(_id) });
 
-    return NextResponse.json(project)
-  } catch (error) {}
+    return NextResponse.json(project);
+  } catch (error) {
+    return NextResponse.json(error);
+  }
 
   //   console.log(_id);
-//   return NextResponse.json({ message: "hi" });
+  //   return NextResponse.json({ message: "hi" });
 }

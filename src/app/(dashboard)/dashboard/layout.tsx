@@ -5,6 +5,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { UserButton } from "@clerk/nextjs";
 
 export default function DashboardLayout({
   children,
@@ -15,9 +16,14 @@ export default function DashboardLayout({
     <SidebarProvider className="">
       <Appsidebar></Appsidebar>
       <SidebarInset className="">
-        <main >
-          <SidebarTrigger></SidebarTrigger>
-          <ThemeToggle></ThemeToggle>
+        <main>
+          <div className="flex justify-between items-center py-3 px-6">
+            <SidebarTrigger></SidebarTrigger>
+            <div className="flex justify-center gap-4 items-center">
+              <ThemeToggle></ThemeToggle>
+              <UserButton></UserButton>
+            </div>
+          </div>
           <div className="h-screen">{children}</div>
         </main>
       </SidebarInset>

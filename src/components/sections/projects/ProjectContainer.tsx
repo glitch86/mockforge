@@ -1,8 +1,7 @@
 "use client";
 import { Project } from "@/app/types/Projects";
 import ProjectCard from "@/components/shared/Cards/ProjectCard";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
+import Loader from "@/components/shared/Loader";
 import useAxios from "@/hooks/axios/useAxios";
 import React, { useEffect, useState } from "react";
 
@@ -30,10 +29,7 @@ const ProjectContainer = () => {
   return (
     <div className="bg-secondary/50 flex-2 p-9 rounded-4xl h-fit grid grid-cols-3">
       {loading ? (
-        <Button disabled size="sm">
-          <Spinner data-icon="inline-start" />
-          Loading...
-        </Button>
+        <Loader></Loader>
       ) : (
         projects.map(project => 
 

@@ -46,7 +46,7 @@ const AddProjectForm = () => {
 
   // form submit
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    // console.log(data);
     const { title, description } = data;
     const res = await axios.post("/add-projects", { title, description });
 

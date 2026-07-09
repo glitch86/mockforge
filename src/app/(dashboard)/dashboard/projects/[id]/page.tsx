@@ -1,9 +1,11 @@
 "use client";
 import { Project } from "@/app/types/Projects";
+import AddEndpoints from "@/components/shared/Forms/AddEndpoints";
 import Loader from "@/components/shared/Loader";
 import Section from "@/components/shared/Section";
 import EndpointTable from "@/components/Tables/EndpointTable";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import useAxios from "@/hooks/axios/useAxios";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -39,17 +41,25 @@ export default function ProjectPage({
       {/* header  */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="font-semibold text-3xl">{title}</h2>
+          <h2 className="font-semibold text-3xl ">{title}</h2>
           <p className="text-zinc-500">{description}</p>
         </div>
-        <div>
-          <Button className="bg-accent text-white py-5">
-            <Plus></Plus>
-            <span>Create new endpoints</span>
-          </Button>
+
+
+        <div className="">
+          <Dialog>
+            <Button asChild>
+              <DialogTrigger>Create Endpoints</DialogTrigger>
+            </Button>
+            <DialogContent className="sm:max-w-fit">
+              <DialogTitle>Create Endpoints</DialogTitle>
+              {/* <DialogHeader>Add project</DialogHeader> */}
+
+              <AddEndpoints></AddEndpoints>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
-
       {/* table */}
       <EndpointTable></EndpointTable>
     </Section>

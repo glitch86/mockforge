@@ -27,7 +27,7 @@ const Projects = () => {
             <DialogTrigger>Create Project</DialogTrigger>
           </Button>
           <DialogContent>
-            <DialogTitle>hh</DialogTitle>
+            <DialogTitle></DialogTitle>
             <DialogHeader>Add project</DialogHeader>
 
             <AddProjectForm></AddProjectForm>

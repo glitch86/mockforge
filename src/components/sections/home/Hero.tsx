@@ -29,7 +29,7 @@ const Hero = () => {
                 Development
               </span>
             </h1>
-            <p>
+            <p className="">
               Instant API generation for developers. No backend, no friction.
               Build features while the
               <br />

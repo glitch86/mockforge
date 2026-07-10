@@ -55,7 +55,7 @@ export default function ProjectPage({
               <DialogTitle>Create Endpoints</DialogTitle>
               {/* <DialogHeader>Add project</DialogHeader> */}
 
-              <AddEndpoints></AddEndpoints>
+              <AddEndpoints projectTitle={title}></AddEndpoints>
             </DialogContent>
           </Dialog>
         </div>

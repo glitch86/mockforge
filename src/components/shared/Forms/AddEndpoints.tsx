@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import useAxios from "@/hooks/axios/useAxios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -41,8 +42,12 @@ type Props = {
   projectTitle: string;
 };
 const AddEndpoints = ({ projectTitle }: Props) => {
+  const [method, setMethod] = useState("GET");
   const axios = useAxios();
-  const projectID = projectTitle.trim().toLocaleLowerCase().replace(/\s+/g, "-");
+  const projectID = projectTitle
+    .trim()
+    .toLocaleLowerCase()
+    .replace(/\s+/g, "-");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
 
@@ -57,11 +62,10 @@ const AddEndpoints = ({ projectTitle }: Props) => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const responseBody = await JSON.parse(data.json);
-    const path = `/${projectID}${data.url}` ;
+    const path = `/${projectID}${data.url}`;
     const { method, title, description } = data;
 
     const res = await axios.post("/add-endpoints", {
-
       method,
       title,
       projectID,
@@ -75,11 +79,7 @@ const AddEndpoints = ({ projectTitle }: Props) => {
   };
 
   return (
-    <form
-      onSubmit={form.handleSubmit(onSubmit)}
-      id="add-endpoints"
-      className=""
-    >
+    <form onSubmit={form.handleSubmit(onSubmit)} id="add-endpoints">
       <div className="flex gap-5 my-4">
         {/* left  */}
         <FieldGroup className="w-75">
@@ -91,7 +91,13 @@ const AddEndpoints = ({ projectTitle }: Props) => {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid} className="">
                   <FieldLabel htmlFor="">METHOD</FieldLabel>
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    value={field.value}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      setMethod(value);
+                    }}
+                  >
                     <SelectTrigger className="w-fit p-2">
                       <SelectValue placeholder="Select method" />
                     </SelectTrigger>
@@ -135,11 +141,11 @@ const AddEndpoints = ({ projectTitle }: Props) => {
               name="url"
               control={form.control}
               render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
+                <Field data-invalid={fieldState.invalid} className="">
                   <FieldLabel htmlFor="url">URL</FieldLabel>
 
-                  <div className="flex items-center gap-4">
-                    <div className="">
+                  <div className="flex items-baseline gap-4">
+                    <div className="bg-secondary px-2 py-1 rounded-2xl text-zinc-400">
                       <p className="">/{projectID}</p>
                     </div>
                     <div className="flex-1">
@@ -195,35 +201,43 @@ const AddEndpoints = ({ projectTitle }: Props) => {
         </FieldGroup>
 
         {/* right */}
-        {
-          
-        }
-        <FieldGroup className="w-75">
-          <div className="h-full">
-            <Controller
-              name="json"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field className="h-full ">
-                  <FieldLabel htmlFor="json">Paste JSON here</FieldLabel>
-                  <InputGroup className="h-full">
-                    <InputGroupTextarea
-                      {...field}
-                      id="json"
-                      placeholder="{JSON}"
-                      rows={10}
-                      className="h-64 resize-none"
-                      aria-invalid={fieldState.invalid}
-                    />
-                  </InputGroup>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            ></Controller>
-          </div>
-        </FieldGroup>
+        <AnimatePresence>
+          {method !== "POST" && (
+            <motion.div
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 300, opacity: 1 }}
+              exit={{ width: 0, opacity: 0 }}
+              transition={{width:{ duration: 0.4}, opacity:{duration: 0.3}}}
+            >
+              <FieldGroup className="w-75">
+                <div className="h-full">
+                  <Controller
+                    name="json"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field className="h-full ">
+                        <FieldLabel htmlFor="json">Paste JSON here</FieldLabel>
+                        <InputGroup className="h-full">
+                          <InputGroupTextarea
+                            {...field}
+                            id="json"
+                            placeholder="{JSON}"
+                            rows={10}
+                            className="h-64 resize-none"
+                            aria-invalid={fieldState.invalid}
+                          />
+                        </InputGroup>
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  ></Controller>
+                </div>
+              </FieldGroup>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       <Button type="submit" form="add-endpoints">
         Submit

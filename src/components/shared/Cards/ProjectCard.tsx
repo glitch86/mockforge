@@ -43,7 +43,7 @@ const ProjectCard = ({ project }: Props) => {
       <CardFooter className="flex justify-between items-center">
         <div className="flex items-center gap-1">
           <History></History>
-          <span>Updated {lastUpdated}</span>
+          <span>Updated {new Date(lastUpdated).toLocaleDateString()}</span>
         </div>
         <Link href={`projects/${_id}`}>
           <Button className="bg-secondary-foreground text-accent">

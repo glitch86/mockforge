@@ -60,7 +60,7 @@ export default function ProjectPage({
         </div>
       </div>
       {/* table */}
-      <EndpointTable></EndpointTable>
+      <EndpointTable projectTitle={title}></EndpointTable>
     </div>
   );
 }

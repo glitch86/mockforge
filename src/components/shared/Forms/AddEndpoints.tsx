@@ -75,7 +75,7 @@ const AddEndpoints = ({ projectTitle }: Props) => {
     });
     console.log("server res", res);
     toast.success("submitted");
-    location.reload();
+    // location.reload();
   };
 
   return (

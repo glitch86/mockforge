@@ -207,7 +207,10 @@ const AddEndpoints = ({ projectTitle }: Props) => {
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: 300, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
-              transition={{width:{ duration: 0.4}, opacity:{duration: 0.3}}}
+              transition={{
+                width: { duration: 0.4 },
+                opacity: { duration: 0.3 },
+              }}
             >
               <FieldGroup className="w-75">
                 <div className="h-full">
@@ -234,6 +237,20 @@ const AddEndpoints = ({ projectTitle }: Props) => {
                     )}
                   ></Controller>
                 </div>
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    const values = form.getValues();
+                    const prompt = `Generate me 10 ${values.url} json for my project ${projectID}`;
+
+                    window.open(
+                      `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`,
+                      "_blank",
+                    );
+                  }}
+                >
+                  <span>Ask ChatGPT</span>
+                </Button>
               </FieldGroup>
             </motion.div>
           )}

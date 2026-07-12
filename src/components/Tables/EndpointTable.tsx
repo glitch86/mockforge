@@ -11,7 +11,10 @@ import {
 } from "../ui/table";
 import { Endpoint } from "@/app/types/Endpoints";
 import useAxios from "@/hooks/axios/useAxios";
-import { Loader } from "lucide-react";
+import { Copy, Loader } from "lucide-react";
+import { Button } from "../ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import toast from "react-hot-toast";
 
 type Props = {
   projectTitle: string;
@@ -37,12 +40,24 @@ const EndpointTable = ({ projectTitle }: Props) => {
     fetchData();
   }, [axios, projectID]);
 
-
-    if (loading || !endpoints) {
+  if (loading || !endpoints) {
     return <Loader></Loader>;
   }
 
-  console.log(endpoints)
+// copy url 
+
+async function copyPath(text: string): Promise<boolean> {
+  try {
+    const url = `http://localhost:3000/api/mock${text}`
+    await navigator.clipboard.writeText(url);
+    toast.success("Copied.")
+    return true;
+  } catch (error) {
+    console.error("Failed to copy text:", error);
+    return false;
+  }
+}
+
   // const datas = [
   //   {
   //     method: "GET",
@@ -64,8 +79,27 @@ const EndpointTable = ({ projectTitle }: Props) => {
         {endpoints.map((data, index) => (
           <TableRow key={index}>
             <TableCell>{data.method}</TableCell>
-            <TableCell>{data.path}</TableCell>
-            <TableCell>{new Date(data.createdAt).toLocaleDateString()}</TableCell>
+            <TableCell className="flex gap-2 items-center">
+              <span className="bg-secondary-foreground px-4 py-2 rounded-xl text-orange-400">
+                {data.path}
+              </span>
+
+              <div>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button className="bg-secondary-foreground text-zinc-400 toolt" onClick={() => copyPath(data.path)}>
+                      <Copy></Copy>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Copy</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </TableCell>
+            <TableCell>
+              {new Date(data.createdAt).toLocaleDateString()}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

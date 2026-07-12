@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/Theme/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "react-hot-toast";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,8 +29,10 @@ export default function RootLayout({
       >
         <body className="min-h-full flex flex-col">
           <ThemeProvider>
-            <Toaster></Toaster>
-            {children}
+            <TooltipProvider>
+              <Toaster></Toaster>
+              {children}
+            </TooltipProvider>
           </ThemeProvider>
         </body>
       </html>

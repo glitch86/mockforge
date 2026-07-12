@@ -2,7 +2,6 @@
 import { Project } from "@/app/types/Projects";
 import AddEndpoints from "@/components/shared/Forms/AddEndpoints";
 import Loader from "@/components/shared/Loader";
-import Section from "@/components/shared/Section";
 import EndpointTable from "@/components/Tables/EndpointTable";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -37,7 +36,7 @@ export default function ProjectPage({
   const { title, description, endpoints, response, createdAt } = project;
   // console.log(project);
   return (
-    <Section my={1} p={9}>
+    <div>
       {/* header  */}
       <div className="flex justify-between items-center">
         <div>
@@ -62,6 +61,6 @@ export default function ProjectPage({
       </div>
       {/* table */}
       <EndpointTable></EndpointTable>
-    </Section>
+    </div>
   );
 }

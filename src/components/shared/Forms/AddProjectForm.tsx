@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { DialogClose } from "@/components/ui/dialog";
 import {
   Field,
   FieldDescription,
@@ -16,6 +15,8 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import useAxios from "@/hooks/axios/useAxios";
+import { useChecker } from "@/hooks/useChecker";
+import { useDebounce } from "@/hooks/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -33,10 +34,15 @@ const formSchema = z.object({
   // .max(100, "Description must be at most 100 characters."),
 });
 
+type checkerProps = {
+  title: string;
+  type: "project";
+};
 const AddProjectForm = () => {
   const axios = useAxios();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [exists, setExists] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,6 +50,20 @@ const AddProjectForm = () => {
       description: "",
     },
   });
+
+  // duplicate checking
+  // const title = form.watch("title");
+  // const debouncedTitle = useDebounce(title, 500)
+
+  // const {exists} = useChecker({title: debouncedTitle, type:"project"})
+
+  const checker = async (title: string) => {
+    const res = await axios.get(
+      `/check-duplicate?title=${encodeURIComponent(title)}&type=project`,
+    );
+
+    console.log(res.data);
+  };
 
   // form submit
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
@@ -72,6 +92,11 @@ const AddProjectForm = () => {
                 aria-invalid={fieldState.invalid}
                 placeholder="Aa..."
                 autoComplete="off"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  field.onChange(value);
+                  checker(value);
+                }}
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>

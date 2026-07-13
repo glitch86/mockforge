@@ -43,6 +43,7 @@ type Props = {
 };
 const AddEndpoints = ({ projectTitle }: Props) => {
   const [method, setMethod] = useState("GET");
+  const [loading, setLoading] = useState(false);
   const axios = useAxios();
   const projectID = projectTitle
     .trim()
@@ -61,6 +62,7 @@ const AddEndpoints = ({ projectTitle }: Props) => {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setLoading(true)
     const responseBody = await JSON.parse(data.json);
     const path = `/${projectID}${data.url}`;
     const { method, title, description } = data;
@@ -207,10 +209,8 @@ const AddEndpoints = ({ projectTitle }: Props) => {
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: 300, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
-              transition={{
-                width: { duration: 0.4 },
-                opacity: { duration: 0.3 },
-              }}
+              transition={{duration: 0.3}}
+              style={{overflow: "hidden"}}
             >
               <FieldGroup className="w-75">
                 <div className="h-full">
@@ -256,7 +256,7 @@ const AddEndpoints = ({ projectTitle }: Props) => {
           )}
         </AnimatePresence>
       </div>
-      <Button type="submit" form="add-endpoints">
+      <Button type="submit" form="add-endpoints" disabled={loading? true: false}>
         Submit
       </Button>
     </form>

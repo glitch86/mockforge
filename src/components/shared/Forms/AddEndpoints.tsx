@@ -23,9 +23,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useAxios from "@/hooks/axios/useAxios";
+import { useDebounce } from "@/hooks/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
@@ -43,6 +44,8 @@ type Props = {
 };
 const AddEndpoints = ({ projectTitle }: Props) => {
   const [method, setMethod] = useState("GET");
+  const [route, setRoute] = useState("");
+  const [exists, setExists] = useState(false);
   const [loading, setLoading] = useState(false);
   const axios = useAxios();
   const projectID = projectTitle
@@ -61,8 +64,25 @@ const AddEndpoints = ({ projectTitle }: Props) => {
     },
   });
 
+  // check duplicate
+  const debouncedRoute = useDebounce(route, 500);
+
+  useEffect(() => {
+    if (!debouncedRoute.trim()) return;
+    const checker = async () => {
+      const res = await axios.get(
+        `/check-duplicate?method=${method}&projectID=${projectID}&route=${encodeURIComponent(debouncedRoute)}&type=endpoint`,
+      );
+
+      setExists(res.data.exists);
+      console.log(res.data);
+    };
+
+    checker();
+  }, [debouncedRoute, method, projectID, axios]);
+
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    setLoading(true)
+    setLoading(true);
     const responseBody = await JSON.parse(data.json);
     const path = `/${projectID}${data.url}`;
     const { method, title, description } = data;
@@ -158,9 +178,24 @@ const AddEndpoints = ({ projectTitle }: Props) => {
                         placeholder="/url"
                         autoComplete="off"
                         className=""
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(value);
+                          setRoute(value);
+                        }}
                       ></Input>
                       {fieldState.invalid && (
                         <FieldError errors={[fieldState.error]} />
+                      )}
+                      {exists && (
+                        <FieldError
+                          errors={[
+                            {
+                              message:
+                                "A route with similar method already exists.",
+                            },
+                          ]}
+                        ></FieldError>
                       )}
                     </div>
                   </div>
@@ -209,8 +244,8 @@ const AddEndpoints = ({ projectTitle }: Props) => {
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: 300, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
-              transition={{duration: 0.3}}
-              style={{overflow: "hidden"}}
+              transition={{ duration: 0.3 }}
+              style={{ overflow: "hidden" }}
             >
               <FieldGroup className="w-75">
                 <div className="h-full">
@@ -239,7 +274,7 @@ const AddEndpoints = ({ projectTitle }: Props) => {
                 </div>
                 <Button
                   onClick={(e) => {
-                    e.preventDefault()
+                    e.preventDefault();
                     const values = form.getValues();
                     const prompt = `Generate me 10 ${values.url} json for my project ${projectID}`;
 
@@ -256,7 +291,11 @@ const AddEndpoints = ({ projectTitle }: Props) => {
           )}
         </AnimatePresence>
       </div>
-      <Button type="submit" form="add-endpoints" disabled={loading? true: false}>
+      <Button
+        type="submit"
+        form="add-endpoints"
+        disabled={loading ? true : false}
+      >
         Submit
       </Button>
     </form>

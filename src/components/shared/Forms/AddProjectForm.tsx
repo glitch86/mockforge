@@ -15,7 +15,6 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import useAxios from "@/hooks/axios/useAxios";
-import { useChecker } from "@/hooks/useChecker";
 import { useDebounce } from "@/hooks/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -34,10 +33,6 @@ const formSchema = z.object({
   // .max(100, "Description must be at most 100 characters."),
 });
 
-type checkerProps = {
-  title: string;
-  type: "project";
-};
 const AddProjectForm = () => {
   const axios = useAxios();
   const router = useRouter();

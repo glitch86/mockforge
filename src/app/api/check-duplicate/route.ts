@@ -13,6 +13,7 @@ export async function GET(req: Request) {
     const type = searchParams.get("type");
     const projectID = searchParams.get("projectID");
     const route = searchParams.get("route");
+    const method = searchParams.get("method");
 
     // db
     const client = await clientPromise;
@@ -27,7 +28,7 @@ export async function GET(req: Request) {
     } else if (type === "endpoint") {
       const existingEndpoint = await db
         .collection("endpoints")
-        .findOne({ projectID, path:route });
+        .findOne({ method, projectID, path:{$regex: `${route}$`} });
 
         return NextResponse.json({exists: existingEndpoint? true : false})
     }

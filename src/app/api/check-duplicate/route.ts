@@ -23,13 +23,13 @@ export async function GET(req: Request) {
         .collection("projects")
         .findOne({ email, title: { $regex: `^${title}$`, $options: "i" }, });
 
-        return NextResponse.json({exits: existingProject? true : false})
+        return NextResponse.json({exists: existingProject? true : false})
     } else if (type === "endpoint") {
       const existingEndpoint = await db
         .collection("endpoints")
         .findOne({ projectID, path:route });
 
-        return NextResponse.json({exits: existingEndpoint? true : false})
+        return NextResponse.json({exists: existingEndpoint? true : false})
     }
   } catch (error) {
     console.error(error);

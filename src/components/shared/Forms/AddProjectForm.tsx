@@ -19,7 +19,7 @@ import { useChecker } from "@/hooks/useChecker";
 import { useDebounce } from "@/hooks/useDebounce";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
@@ -41,6 +41,7 @@ type checkerProps = {
 const AddProjectForm = () => {
   const axios = useAxios();
   const router = useRouter();
+  const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const [exists, setExists] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,18 +53,21 @@ const AddProjectForm = () => {
   });
 
   // duplicate checking
-  // const title = form.watch("title");
-  // const debouncedTitle = useDebounce(title, 500)
+  const debouncedTitle = useDebounce(title, 500);
 
-  // const {exists} = useChecker({title: debouncedTitle, type:"project"})
+  useEffect(() => {
+    if (!debouncedTitle.trim()) return;
+    const checker = async () => {
+      const res = await axios.get(
+        `/check-duplicate?title=${encodeURIComponent(debouncedTitle)}&type=project`,
+      );
 
-  const checker = async (title: string) => {
-    const res = await axios.get(
-      `/check-duplicate?title=${encodeURIComponent(title)}&type=project`,
-    );
+      setExists(res.data.exists);
+      console.log(res.data)
+    };
 
-    console.log(res.data);
-  };
+    checker();
+  }, [debouncedTitle, axios]);
 
   // form submit
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
@@ -80,6 +84,7 @@ const AddProjectForm = () => {
   return (
     <form id="add-project" onSubmit={form.handleSubmit(onSubmit)}>
       <FieldGroup>
+        {/* title */}
         <Controller
           name="title"
           control={form.control}
@@ -95,10 +100,17 @@ const AddProjectForm = () => {
                 onChange={(e) => {
                   const value = e.target.value;
                   field.onChange(value);
-                  checker(value);
+                  setTitle(value);
                 }}
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              {exists && (
+                <FieldError
+                  errors={[
+                    { message: "A project with this title already exists." },
+                  ]}
+                ></FieldError>
+              )}
             </Field>
           )}
         />

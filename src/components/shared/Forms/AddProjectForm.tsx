@@ -18,7 +18,7 @@ import {
 import useAxios from "@/hooks/axios/useAxios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as z from "zod";
@@ -36,6 +36,7 @@ const formSchema = z.object({
 const AddProjectForm = () => {
   const axios = useAxios();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,6 +48,7 @@ const AddProjectForm = () => {
   // form submit
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     // console.log(data);
+    setLoading(true);
     const { title, description } = data;
     const res = await axios.post("/add-projects", { title, description });
 
@@ -105,7 +107,11 @@ const AddProjectForm = () => {
           )}
         />
       </FieldGroup>
-      <Button type="submit" form="add-project">
+      <Button
+        type="submit"
+        form="add-project"
+        disabled={loading ? true : false}
+      >
         Submit
       </Button>
     </form>

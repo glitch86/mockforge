@@ -68,5 +68,19 @@ const handlePost = async(
   params: RouteParams,
   method: HttpMethod,
 ) => {
-  return NextResponse.json( await params)
+
+  const {projectID, path} = await params;
+  const url = `/${projectID}/${path.join("/")}`;
+
+  const responseBody = await req.json()
+  const client = await clientPromise;
+  const db = client.db("mockForge");
+
+  const doc = await db.collection("responseBodies").updateOne({projectID, path:url}, {$push: {
+      responseBody: responseBody
+    },})
+
+    console.log(projectID, url, responseBody)
+
+  return NextResponse.json(doc)
 }

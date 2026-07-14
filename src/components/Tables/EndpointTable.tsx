@@ -49,6 +49,8 @@ const EndpointTable = ({ projectTitle }: Props) => {
 async function copyPath(text: string): Promise<boolean> {
   try {
     const url = `http://localhost:3000/api/mock${text}`
+    // const url = `https://mockforge-omega.vercel.app/api/mock${text}`
+
     await navigator.clipboard.writeText(url);
     toast.success("Copied.")
     return true;

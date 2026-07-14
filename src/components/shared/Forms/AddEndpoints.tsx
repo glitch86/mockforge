@@ -36,7 +36,7 @@ const formSchema = z.object({
   title: z.string().min(1, "title can't be empty"),
   url: z.string().min(1, "must set url"),
   description: z.string().max(50),
-  json: z.string().min(1, "Invalid JSON"),
+  json: z.string(),
 });
 
 type Props = {
@@ -81,15 +81,22 @@ const AddEndpoints = ({ projectTitle }: Props) => {
     checker();
   }, [debouncedRoute, method, projectID, axios]);
 
-
-  // submission 
+  // submission
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setLoading(true);
-    const responseBody = await JSON.parse(data.json);
     const path = `/${projectID}${data.url}`;
     const { method, title, description } = data;
+    const responseBody = method === "GET" ? await JSON.parse(data.json) : [];
 
-    // endpoint 
+    // responsebody
+    const body = await axios.post("/responseBody/add", {
+      projectID,
+      path,
+      responseBody,
+    });
+    console.log("server res", body);
+
+    // endpoint
     const res = await axios.post("/add-endpoints", {
       method,
       title,
@@ -98,13 +105,6 @@ const AddEndpoints = ({ projectTitle }: Props) => {
       description,
     });
 
-    // responsebody 
-    const body = await axios.post("/responseBody/add", {
-      projectID,
-      path,
-      responseBody,
-    });
-    console.log("server res", res, body);
     toast.success("submitted");
     location.reload();
   };
@@ -303,7 +303,7 @@ const AddEndpoints = ({ projectTitle }: Props) => {
       <Button
         type="submit"
         form="add-endpoints"
-        disabled={loading ? true : false}
+        disabled={loading || exists ? true : false}
       >
         Submit
       </Button>

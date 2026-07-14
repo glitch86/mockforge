@@ -11,16 +11,16 @@ type HandlerContext = {
 };
 
 export async function GET(req: Request, { params }: HandlerContext) {
-  return handleMock(req, params, "GET");
+  return handleGet(req, params, "GET");
 }
 
 export async function POST(req: Request, { params }: HandlerContext) {
-  return handleMock(req, params, "POST");
+  return handlePost(req, params, "POST");
 }
 
 type HttpMethod = "GET" | "POST";
 
-const handleMock = async (
+const handleGet = async (
   req: Request,
   params: RouteParams,
   method: HttpMethod,
@@ -61,3 +61,12 @@ const handleMock = async (
 
   return NextResponse.json(responseBody, { status: 200 });
 };
+
+
+const handlePost = async(
+  req: Request,
+  params: RouteParams,
+  method: HttpMethod,
+) => {
+  return NextResponse.json( await params)
+}

@@ -32,31 +32,32 @@ const handleMock = async (
   const client = await clientPromise;
   const db = client.db("mockForge");
 
-  const endpoint = await db.collection("endpoints").findOne({
+  const doc = await db.collection("responseBodies").findOne({
+    projectID,
     path: url,
   });
 
-  if (!endpoint) {
+  if (!doc) {
     return NextResponse.json(
       {
         success: false,
-        message: "Endpoint not found",
+        message: "Document not found",
       },
       { status: 404 },
     );
   }
 
-  if (endpoint.method !== method) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Method not allowed",
-      },
-      { status: 405 },
-    );
-  }
+  // if (doc.method !== method) {
+  //   return NextResponse.json(
+  //     {
+  //       success: false,
+  //       message: "Method not allowed",
+  //     },
+  //     { status: 405 },
+  //   );
+  // }
 
-  const { responseBody } = endpoint;
+  const { responseBody } = doc;
 
   return NextResponse.json(responseBody, { status: 200 });
 };

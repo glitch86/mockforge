@@ -81,21 +81,30 @@ const AddEndpoints = ({ projectTitle }: Props) => {
     checker();
   }, [debouncedRoute, method, projectID, axios]);
 
+
+  // submission 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setLoading(true);
     const responseBody = await JSON.parse(data.json);
     const path = `/${projectID}${data.url}`;
     const { method, title, description } = data;
 
+    // endpoint 
     const res = await axios.post("/add-endpoints", {
       method,
       title,
       projectID,
       path,
       description,
+    });
+
+    // responsebody 
+    const body = await axios.post("/responseBody/add", {
+      projectID,
+      path,
       responseBody,
     });
-    console.log("server res", res);
+    console.log("server res", res, body);
     toast.success("submitted");
     location.reload();
   };

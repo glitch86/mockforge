@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       );
     }
     const body = await request.json();
-    const { title, description } = body;
+    const { title, description, projectID } = body;
 
     if (!title?.trim()) {
       return NextResponse.json(
@@ -33,6 +33,7 @@ export async function POST(request: Request) {
     const result = await db.collection("projects").insertOne({
       title,
       description,
+      projectID,
       endpoints: 0,
       response: 0,
       ownerId: userId,
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
       {
         success: true,
         id: result.insertedId,
+        projectID,
       },
       { status: 201 },
     );

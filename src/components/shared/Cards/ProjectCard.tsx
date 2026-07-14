@@ -14,7 +14,7 @@ type Props = {
   project: Project;
 };
 const ProjectCard = ({ project }: Props) => {
-  const {_id, title, description, endpoints, response, lastUpdated } = project;
+  const {_id, title, description, projectID, endpoints, response, lastUpdated } = project;
 
   return (
     <Card className="bg-secondary h-64 w-80">
@@ -45,7 +45,7 @@ const ProjectCard = ({ project }: Props) => {
           <History></History>
           <span>Updated {new Date(lastUpdated).toLocaleDateString()}</span>
         </div>
-        <Link href={`projects/${_id}`}>
+        <Link href={`projects/${projectID}`}>
           <Button className="bg-secondary-foreground text-accent">
             <span>Open</span>
             <ArrowBigRightDash></ArrowBigRightDash>

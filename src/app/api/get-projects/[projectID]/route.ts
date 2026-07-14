@@ -3,17 +3,18 @@ import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
 type Props = {
-  params: Promise<{ _id: string }>;
+  params: Promise<{ projectID: string }>;
 };
 export async function GET(request: Request, { params }: Props) {
   try {
-    const { _id } = await params;
+    const {projectID } = await params;
     const client = await clientPromise;
     const db = client.db("mockForge");
 
+    console.log("projectid", projectID)
     const project = await db
       .collection("projects")
-      .findOne({ _id: new ObjectId(_id) });
+      .findOne({ projectID });
 
     return NextResponse.json(project);
   } catch (error) {

@@ -69,11 +69,15 @@ const AddProjectForm = () => {
     // console.log(data);
     setLoading(true);
     const { title, description } = data;
-    const res = await axios.post("/add-projects", { title, description });
+    const projectID = title
+    .trim()
+    .toLocaleLowerCase()
+    .replace(/\s+/g, "-");
+    const res = await axios.post("/add-projects", { title, description, projectID });
 
     console.log("server res", res.data);
     toast.success("Project Created.");
-    router.push(`projects/${res.data.id}`);
+    router.push(`projects/${projectID}`);
   };
 
   return (
@@ -142,7 +146,7 @@ const AddProjectForm = () => {
       <Button
         type="submit"
         form="add-project"
-        disabled={loading ? true : false}
+        disabled={loading || exists ? true : false}
       >
         Submit
       </Button>

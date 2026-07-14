@@ -32,6 +32,13 @@ export async function GET(req: Request) {
 
         return NextResponse.json({exists: existingEndpoint? true : false})
     }
+     else if (type === "responseBody") {
+      const existingBody = await db
+        .collection("responseBodies")
+        .findOne({ projectID, path: route });
+
+        return NextResponse.json({exists: existingBody? true : false})
+    }
   } catch (error) {
     console.error(error);
 

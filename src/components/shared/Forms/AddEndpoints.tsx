@@ -89,12 +89,18 @@ const AddEndpoints = ({ projectTitle }: Props) => {
     const responseBody = method === "GET" ? await JSON.parse(data.json) : [];
 
     // responsebody
-    const body = await axios.post("/responseBody/add", {
-      projectID,
-      path,
-      responseBody,
-    });
-    console.log("server res", body);
+    const result = await axios.get(
+      `/check-duplicate?projectID=${projectID}&route=${encodeURIComponent(path)}&type=responseBody`,
+    );
+
+    if (!result.data.exists) {
+      const body = await axios.post("/responseBody/add", {
+        projectID,
+        path,
+        responseBody,
+      });
+      console.log("server res", body);
+    }
 
     // endpoint
     const res = await axios.post("/add-endpoints", {

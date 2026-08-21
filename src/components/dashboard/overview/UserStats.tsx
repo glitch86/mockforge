@@ -4,7 +4,7 @@ import React from 'react';
 
 const UserStats = () => {
     return (
-        <div>
+        <div className='flex gap-4'>
             <ProjectOverviewCard></ProjectOverviewCard>
             <EndpointOverviewCard></EndpointOverviewCard>
         </div>

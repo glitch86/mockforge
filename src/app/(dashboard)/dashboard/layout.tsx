@@ -24,7 +24,7 @@ export default function DashboardLayout({
               <UserButton></UserButton>
             </div>
           </div>
-          <div className="h-screen">{children}</div>
+          <div className="h-screen mx-4">{children}</div>
         </main>
       </SidebarInset>
     </SidebarProvider>

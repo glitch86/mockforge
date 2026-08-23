@@ -188,20 +188,7 @@ export default function GraphData() {
                 });
               }}
             />
-            {/* <ChartTooltip
-              cursor={false}
-              content={
-                <ChartTooltipContent
-                  labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                    });
-                  }}
-                  indicator="dot"
-                />
-              }
-            /> */}
+            
             <Area
               dataKey="mobile"
               type="natural"

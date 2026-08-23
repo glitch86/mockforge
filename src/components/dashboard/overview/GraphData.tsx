@@ -14,8 +14,8 @@ import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
+//   ChartTooltip,
+//   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
 
@@ -144,7 +144,7 @@ export default function GraphData() {
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
+          className="aspect-auto h-62.5 w-full"
         >
           <AreaChart data={chartData}>
             <defs>
@@ -188,7 +188,7 @@ export default function GraphData() {
                 });
               }}
             />
-            <ChartTooltip
+            {/* <ChartTooltip
               cursor={false}
               content={
                 <ChartTooltipContent
@@ -201,7 +201,7 @@ export default function GraphData() {
                   indicator="dot"
                 />
               }
-            />
+            /> */}
             <Area
               dataKey="mobile"
               type="natural"

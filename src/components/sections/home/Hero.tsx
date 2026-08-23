@@ -1,21 +1,21 @@
-import DotGrid from "@/components/DotGrid";
+"use client"
 import { Button } from "@/components/ui/button";
 import useAxiosSecure from "@/hooks/axios/useAxios";
+import ShapeGrid from "@/components/ShapeGrid";
 import React from "react";
 
 const Hero = () => {
   return (
     <div className="h-screen w-full relative ">
-      <DotGrid
-        dotSize={5}
-        gap={15}
-        baseColor="#2F293A"
-        activeColor="#FFFFFF"
-        proximity={100}
-        shockRadius={250}
-        shockStrength={5}
-        resistance={750}
-        returnDuration={1.5}
+      <ShapeGrid
+        speed={0.9}
+        squareSize={40}
+        direction="diagonal" // up, down, left, right, diagonal
+        borderColor="#2F293A"
+        hoverFillColor="#222"
+        shape="hexagon" // square, hexagon, circle, triangle
+        hoverTrailAmount={0} // number of trailing hovered shapes (0 = no trail)
+        // size={40}
       />
       <div className="absolute top-0 w-full h-full ">
         <div className=" flex flex-col justify-center w-full h-full container mx-auto">

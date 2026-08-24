@@ -18,7 +18,7 @@ const Navbar = async () => {
   // console.log("user", user);
 
   return (
-    <div className="bg-white dark:bg-zinc-950 shadow-lg sticky top-0 z-100">
+    <div className="bg-transparent shadow-lg sticky top-0 z-100">
       <div className="container mx-auto flex items-center gap-3">
         <Logo></Logo>
         <NavigationMenu className="">

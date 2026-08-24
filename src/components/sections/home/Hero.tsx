@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import useAxiosSecure from "@/hooks/axios/useAxios";
 import ShapeGrid from "@/components/ShapeGrid";
 import React from "react";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -17,7 +18,7 @@ const Hero = () => {
         hoverTrailAmount={0} // number of trailing hovered shapes (0 = no trail)
         // size={40}
       />
-      <div className="absolute top-0 w-full h-full ">
+    <div className="absolute top-0 w-full h-full">
         <div className=" flex flex-col justify-center w-full h-full container mx-auto">
           <div className="flex flex-col justify-center items-center gap-5 text-center -my-4">
             <h1 className="text-6xl font-semibold">
@@ -34,14 +35,13 @@ const Hero = () => {
               <br />
               backend team is still in the planning phase.
             </p>
-          </div>
-          <div className="flex justify-center items-center gap-5 my-6">
-            <Button className="px-6 py-6 bg-accent text-white">
-              Get started
-            </Button>
-            <Button className="px-6 py-6 bg-transparent border-accent border-2 text-accent">
-              View Dashboard
-            </Button>
+            <div className="my-6">
+              <Link href={"/dashboard"} className="">
+                <Button className="px-6 py-6 bg-accent text-white">
+                  View Dashboard
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ const jsonLines = [
   '  "status": "success",',
   '  "data": {',
   '    "users": [',
-  '      {',
+  "      {",
   '        "id": 1,',
   '        "name": "Alex Rivera",',
   '        "role": "Frontend Engineer",',
@@ -54,7 +54,12 @@ const line = {
 const Example = () => {
   return (
     <Section>
-      <div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={container}
+      >
         {/* header  */}
         <div className="dark:bg-zinc-800 bg-gray-200 px-6 py-3 rounded-t-2xl flex">
           <div className="flex items-center gap-3">
@@ -75,12 +80,7 @@ const Example = () => {
         {/* body  */}
         <div>
           <div className=" rounded-b-xl border border-zinc-300 dark:border-zinc-800 bg-[#F8FAFC] dark:bg-zinc-950 p-4 font-mono text-sm text-zinc-900 dark:text-zinc-300">
-            <motion.pre
-              variants={container}
-              initial="hidden"
-              animate="visible"
-              className="space-y-1"
-            >
+            <motion.pre className="space-y-1">
               {jsonLines.map((lineText, index) => (
                 <motion.div
                   key={index}
@@ -93,7 +93,7 @@ const Example = () => {
             </motion.pre>
           </div>
         </div>
-      </div>
+      </motion.div>
     </Section>
   );
 };

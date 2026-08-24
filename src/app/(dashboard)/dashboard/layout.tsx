@@ -1,4 +1,5 @@
 import Appsidebar from "@/components/shared/Appsidebar";
+import Breadcrumbs from "@/components/shared/breadcrumbs/Breadcrumbs";
 import { ThemeToggle } from "@/components/Theme/ThemeToggle";
 import {
   SidebarInset,
@@ -24,7 +25,9 @@ export default function DashboardLayout({
               <UserButton></UserButton>
             </div>
           </div>
-          <div className="h-screen mx-4">{children}</div>
+          <div className="h-screen mx-4">
+            <Breadcrumbs></Breadcrumbs>
+            {children}</div>
         </main>
       </SidebarInset>
     </SidebarProvider>

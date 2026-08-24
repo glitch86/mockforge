@@ -26,7 +26,7 @@ export default function Breadcrumbs() {
           return (
             <div key={index} className="flex justify-center items-center">
               <BreadcrumbItem>
-                <BreadcrumbLink href={`/${segment}`}>{segment}</BreadcrumbLink>
+                <BreadcrumbLink href={`${segment}`}>{segment}</BreadcrumbLink>
               </BreadcrumbItem>
               {index + 1 === segments.length ? (
                 ""

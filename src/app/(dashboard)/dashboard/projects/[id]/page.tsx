@@ -1,6 +1,5 @@
 "use client";
 import { Project } from "@/app/types/Projects";
-import Breadcrumb from "@/components/shared/breadcrumbs/Breadcrumbs";
 import AddEndpoints from "@/components/shared/Forms/AddEndpoints";
 import Loader from "@/components/shared/Loader";
 import EndpointTable from "@/components/Tables/EndpointTable";
@@ -38,7 +37,6 @@ export default function ProjectPage({
   // console.log(project);
   return (
     <div>
-      <Breadcrumb></Breadcrumb>
       {/* header  */}
       <div className="flex justify-between items-center">
         <div>

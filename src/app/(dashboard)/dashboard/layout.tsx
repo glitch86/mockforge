@@ -16,8 +16,8 @@ export default function DashboardLayout({
   return (
     <SidebarProvider className="">
       <Appsidebar></Appsidebar>
-      <SidebarInset className="">
-        <main>
+      <SidebarInset className="min-w-0">
+        <main className="min-w-0">
           <div className="flex justify-between items-center py-3 px-6">
             <SidebarTrigger></SidebarTrigger>
             <div className="flex justify-center gap-4 items-center">
@@ -27,7 +27,8 @@ export default function DashboardLayout({
           </div>
           <div className="h-screen mx-4">
             <Breadcrumbs></Breadcrumbs>
-            {children}</div>
+            {children}
+          </div>
         </main>
       </SidebarInset>
     </SidebarProvider>

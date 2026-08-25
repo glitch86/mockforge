@@ -1,5 +1,6 @@
 "use client";
 import { Project } from "@/app/types/Projects";
+import ProjectCard from "@/components/shared/Cards/ProjectCard";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -37,10 +38,18 @@ export default function RecentProjects() {
     getProjects();
   }, []);
 
-// console.log(projects)
+  // console.log(projects)
   return (
-    <div className="my-4 max-w-full bg-secondary/50 flex gap-4 p-9 rounded-4xl h-fit overflow-x-auto ">
-      {/* {projects.map((project: Project) => console.log(project))} */}
+    <div className="my-4 bg-secondary/50 min-w-0 w-full p-9 rounded-4xl h-fit overflow-x-auto ">
+      <div className="flex gap-4 w-max">
+        {projects.map((project) => {
+          return (
+            <div key={project.projectID} className="shrink-0">
+              <ProjectCard project={project} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -67,7 +67,7 @@ const ProjectCard = ({ project }: Props) => {
           <History></History>
           <span>Updated {new Date(lastUpdated).toLocaleDateString()}</span>
         </div>
-        <Link href={`projects/${projectID}`}>
+        <Link href={`dashboard/projects/${projectID}`}>
           <Button
             className="bg-secondary-foreground text-accent"
             onClick={() => storeId(projectID)}

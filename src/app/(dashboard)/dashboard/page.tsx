@@ -1,11 +1,11 @@
 import GraphData from "@/components/dashboard/overview/GraphData";
+import RecentProjects from "@/components/dashboard/overview/RecentProjects";
 import UserProfile from "@/components/dashboard/overview/UserProfile";
 import UserStats from "@/components/dashboard/overview/UserStats";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 
 const Dashboard = () => {
-
   return (
     <div>
       <div className="my-4">
@@ -21,6 +21,11 @@ const Dashboard = () => {
 
       <div className="my-4">
         <GraphData></GraphData>
+      </div>
+
+      <Separator></Separator>
+      <div>
+        <RecentProjects></RecentProjects>
       </div>
     </div>
   );

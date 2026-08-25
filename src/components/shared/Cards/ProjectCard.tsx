@@ -39,10 +39,10 @@ const ProjectCard = ({ project }: Props) => {
   };
 
   return (
-    <Card className="bg-secondary h-64 w-80">
+    <Card className="bg-secondary h-56 w-72">
       <CardHeader>
         <h3 className="font-semibold text-2xl">{title}</h3>
-        <p className="text-zinc-500 line-clamp-2">{description} </p>
+        <p className="text-zinc-500 line-clamp-2 h-5">{description} </p>
       </CardHeader>
       <CardContent className="flex gap-4 items-center">
         {/* endpoints  */}

@@ -27,7 +27,7 @@ const ProjectContainer = () => {
 
   //   console.log(projects);
   return (
-    <div className="bg-secondary/50 flex-2 p-9 rounded-4xl h-fit grid grid-cols-3">
+    <div className="bg-secondary/50 flex gap-4 flex-2 p-9 rounded-4xl h-fit">
       {loading ? (
         <Loader></Loader>
       ) : (

@@ -14,6 +14,10 @@ export async function GET(request: NextRequest) {
       .find({ projectID: { $in: ids } })
       .toArray();
 
+    projects.sort(
+      (a, b) => ids.indexOf(a.projectID) - ids.indexOf(b.projectID),
+    );
+
     return NextResponse.json(projects, { status: 200 });
   } catch (error) {
     return NextResponse.json(

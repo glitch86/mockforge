@@ -40,15 +40,21 @@ export default function RecentProjects() {
 
   // console.log(projects)
   return (
-    <div className="my-4 bg-secondary/50 min-w-0 w-full p-9 rounded-4xl h-fit overflow-x-auto ">
-      <div className="flex gap-4 w-max">
-        {projects.map((project) => {
-          return (
-            <div key={project.projectID} className="shrink-0">
-              <ProjectCard project={project} />
-            </div>
-          );
-        })}
+    <div className="my-4">
+      <div>
+        <h3 className="font-semibold text-xl my-2">Recent Projects</h3>
+      </div>
+
+      <div className="my-4 bg-secondary/50 min-w-0 w-full p-9 rounded-4xl h-fit overflow-x-auto ">
+        <div className="flex gap-4 w-max">
+          {projects.map((project) => {
+            return (
+              <div key={project.projectID} className="shrink-0">
+                <ProjectCard project={project} />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

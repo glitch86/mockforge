@@ -13,6 +13,8 @@ import React from "react";
 export default function Breadcrumbs() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
+
+  let href = "";
   // const
   return (
     <Breadcrumb>
@@ -23,10 +25,11 @@ export default function Breadcrumbs() {
         <BreadcrumbSeparator></BreadcrumbSeparator>
 
         {segments.map((segment, index) => {
+          href += `/${segment}`;
           return (
             <div key={index} className="flex justify-center items-center">
               <BreadcrumbItem>
-                <BreadcrumbLink href={`${segment}`}>{segment}</BreadcrumbLink>
+                <BreadcrumbLink href={`${href}`}>{segment}</BreadcrumbLink>
               </BreadcrumbItem>
               {index + 1 === segments.length ? (
                 ""

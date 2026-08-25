@@ -14,7 +14,29 @@ type Props = {
   project: Project;
 };
 const ProjectCard = ({ project }: Props) => {
-  const {_id, title, description, projectID, endpoints, response, lastUpdated } = project;
+  const {
+    _id,
+    title,
+    description,
+    projectID,
+    endpoints,
+    response,
+    lastUpdated,
+  } = project;
+
+
+  // store id in localStorage
+  const storeId = (projectID: string) => {
+    const storedIds: string[] = JSON.parse(
+      localStorage.getItem("projectID") ?? "[]",
+    );
+
+    // remove duplicate ids
+    const filtered = storedIds.filter((id) => id !== projectID);
+
+    filtered.unshift(projectID);
+    localStorage.setItem("projectID", JSON.stringify(filtered));
+  };
 
   return (
     <Card className="bg-secondary h-64 w-80">
@@ -46,7 +68,10 @@ const ProjectCard = ({ project }: Props) => {
           <span>Updated {new Date(lastUpdated).toLocaleDateString()}</span>
         </div>
         <Link href={`projects/${projectID}`}>
-          <Button className="bg-secondary-foreground text-accent">
+          <Button
+            className="bg-secondary-foreground text-accent"
+            onClick={() => storeId(projectID)}
+          >
             <span>Open</span>
             <ArrowBigRightDash></ArrowBigRightDash>
           </Button>

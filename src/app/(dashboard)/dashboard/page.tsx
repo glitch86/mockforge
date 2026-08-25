@@ -1,3 +1,4 @@
+"use client"
 import GraphData from "@/components/dashboard/overview/GraphData";
 import RecentProjects from "@/components/dashboard/overview/RecentProjects";
 import UserProfile from "@/components/dashboard/overview/UserProfile";
@@ -24,7 +25,7 @@ const Dashboard = () => {
       </div>
 
       <Separator></Separator>
-      <div>
+      <div className="">
         <RecentProjects></RecentProjects>
       </div>
     </div>
